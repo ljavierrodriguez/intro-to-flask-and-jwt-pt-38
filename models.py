@@ -2,18 +2,30 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 class User(db.Model):
-    __tablename__ = 'users'
+    __tablename__ = 'usuarios'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(120), nullable=False, unique=True)
+    correoelectronico = db.Column(db.String(120), nullable=False, unique=True)
     password = db.Column(db.String(120), nullable=False)
-    active = db.Column(db.Boolean(), default=True)
+    activo = db.Column(db.Boolean(), default=True)
+    nombre = db.Column(db.String(120), nullable=False, unique=False)
+    apellido = db.Column(db.String(120), nullable=False, unique=False)
+    direccion = db.Column(db.String(120), nullable=False, unique=False)
+    pais =db.Column(db.String(120), nullable=False, unique=False)
+    region = db.Column(db.String(120), nullable=False, unique=False)
+    fechanac = db.Column(db.String(120), nullable=False, unique=False)
     
     def serialize(self):
         return {
             "id": self.id,
-            "username": self.username,
-            "active": self.active
-        }
+            "correoelectronico": self.correoelectronico,
+            "activo": self.activo,
+            "nombre": self.nombre,
+            "apellido": self.apellido,
+            "direccion": self.direccion, 
+            "pais": self.pais,
+            "region": self.region,
+            "fechanac" = self.fechanac
+                }       
         
     def save(self):
         db.session.add(self)
